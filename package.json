@@ -1,9 +1,11 @@
 {
   "scripts": {
     "start": "node app",
-    "dev": "nodemon app"
+    "dev": "nodemon --ext js,graphql app"
   },
   "dependencies": {
+    "@graphql-tools/graphql-file-loader": "^7.5.5",
+    "@graphql-tools/load": "^7.7.7",
     "apollo-server-express": "^3.10.3",
     "body-parser": "^1.20.1",
     "cookie-parser": "^1.4.6",

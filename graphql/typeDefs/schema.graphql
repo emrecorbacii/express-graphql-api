@@ -1,0 +1,10 @@
+#import User from './types/User.graphql'
+#import Query from './types/User.graphql'
+#import Mutation from './types/User.graphql'
+
+
+#import Query from './types/Foo.graphql'
+
+#import Query from './types/Hello.graphql'
+
+
