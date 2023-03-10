@@ -2,6 +2,7 @@
 	"name": "express-graphql-api",
 	"version": "1.0.0",
 	"description": "Express GraphQL API  with Apollo Server , WebSockets , MongoDB",
+	"main": "app.js",
 	"scripts": {
 		"start": "node app",
 		"dev": "nodemon --ext js,graphql app"
