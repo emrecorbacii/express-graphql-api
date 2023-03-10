@@ -1,10 +1,7 @@
-#import User from './types/User.graphql'
-#import Query from './types/User.graphql'
-#import Mutation from './types/User.graphql'
+#import Query from './rootTypes/Query.graphql'
+#import Mutation from './rootTypes/Mutation.graphql'
+#import Subscription from './rootTypes/Subscription.graphql'
 
 
-#import Query from './types/Foo.graphql'
-
-#import Query from './types/Hello.graphql'
 
 

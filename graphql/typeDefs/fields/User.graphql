@@ -1,0 +1,6 @@
+type User {
+	Username: String
+	Password: String
+	Id: String
+	Status: Int
+}

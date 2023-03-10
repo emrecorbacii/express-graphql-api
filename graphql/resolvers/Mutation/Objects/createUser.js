@@ -1,4 +1,6 @@
-const createUser = (parent, args) => {
+const { pubsub } = require("../../Subscription");
+
+const createUser = async (parent, args) => {
 	// Do whatever..
 
 	const Username = () => {
@@ -10,12 +12,16 @@ const createUser = (parent, args) => {
 	const Id = () => {
 		return args.data.Id;
 	};
-	return {
-		Username,
-		Password,
-		Id,
-		Status: 202,
+
+	const user = {
+		Username: Username(),
+		Password: Password(),
+		Id: Id(),
 	};
+	await pubsub.publish("USER_CREATED", {
+		userCreated: user,
+	});
+	return user;
 };
 
 module.exports = createUser;

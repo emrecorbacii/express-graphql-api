@@ -1,11 +1,20 @@
 const { ApolloServer } = require("apollo-server-express");
 const { join } = require("node:path");
+const { createServer } = require("http");
 
 const { loadSchema } = require("@graphql-tools/load");
 const { GraphQLFileLoader } = require("@graphql-tools/graphql-file-loader");
-
+const { makeExecutableSchema } = require("@graphql-tools/schema");
 const { resolvers } = require("../graphql/resolvers/resolver");
-require("dotenv").config();
+
+const {
+	ApolloServerPluginDrainHttpServer,
+} = require("@apollo/server/plugin/drainHttpServer");
+
+const { WebSocketServer } = require("ws");
+const { useServer } = require("graphql-ws/lib/use/ws");
+
+const authAPI = require("../helper/authAPI");
 
 const typeDefs = async () => {
 	/* <Declaration of GraphQL Schemas> */
@@ -22,16 +31,54 @@ const typeDefs = async () => {
 
 /* <Declaration of ApolloServer> */
 const createApolloServer = async (app) => {
-	const server = new ApolloServer({
+	const schema = makeExecutableSchema({
 		typeDefs: await typeDefs(),
-		resolvers: resolvers,
+		resolvers,
+	});
+
+	const httpServer = createServer(app); //* Create HTTP Server
+
+	const wsServer = new WebSocketServer({
+		server: httpServer, //* Create WebSocket Server
+		path: "/graphql",
+	});
+	const serverCleanup = new useServer(
+		{
+			schema,
+		},
+		wsServer
+	);
+
+	const server = new ApolloServer({
+		schema,
+		debug: false,
+		introspection: true, // Currently "true"
+		context: authAPI, //* Load Authentication API
+		plugins: [
+			//* Proper shutdown for the HTTP server.
+			ApolloServerPluginDrainHttpServer({ httpServer }),
+
+			//* Proper shutdown for the WebSocket server.
+			{
+				async serverWillStart() {
+					return {
+						async drainServer() {
+							await serverCleanup.dispose();
+						},
+					};
+				},
+			},
+		],
 	});
 
 	await server.start();
 
 	server.applyMiddleware({ app });
-	app.listen({ port: process.env.PORT }, () => {
-		console.log("http://localhost:" + process.env.PORT);
+
+	httpServer.listen({ port: 3001 }, () => {
+		console.log("Apollo Server on http://localhost:3001/graphql");
+		console.log("HTTP Server on http://localhost:3001/");
+		console.log("WebSocket Server on ws://localhost:3001/graphql");
 	});
 };
 /* </ Declaration of ApolloServer> */

@@ -1,0 +1,7 @@
+# import User from "../fields/User.graphql";
+
+type Query {
+	User(Id: String!): User!
+	Hello: String
+	Foo: String
+}

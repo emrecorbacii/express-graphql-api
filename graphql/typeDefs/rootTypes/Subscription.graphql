@@ -1,0 +1,5 @@
+# import User from "../fields/User.graphql";
+
+type Subscription {
+	userCreated: User
+}
