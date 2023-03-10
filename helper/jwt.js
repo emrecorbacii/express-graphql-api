@@ -1,18 +1,18 @@
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
-module.exports.GenerateDev = async (data) => {
+module.exports.GenerateDev = async (dev) => {
 	return jwt.sign(
 		{
-			data,
+			dev,
 		},
-		"This is a secret dev"
+		process.env.GENERATE_DEV_SECRET
 	);
 };
 
-module.exports.VerifyDev = async (token, key) => {
+module.exports.VerifyDev = async (token, secret) => {
 	try {
-		const data = jwt.verify(token, key);
-		return data;
+		return jwt.verify(token, secret);
 	} catch (err) {
 		return false;
 	}

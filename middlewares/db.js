@@ -5,13 +5,18 @@ require("dotenv").config();
 const uri = process.env.MONGODB_URI;
 
 const connectDB = async () => {
+	if (!uri) {
+		console.log({ MongoDB: "No URI" });
+		return;
+	}
+
 	mongoose.connect(uri, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
 	});
 
 	mongoose.connection.on("open", () => {
-		console.log("MongoDB:Connected");
+		console.log({ MongoDB: "Connected" });
 	});
 
 	mongoose.connection.on("error", (err) => {

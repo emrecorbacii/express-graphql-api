@@ -15,7 +15,7 @@ const { WebSocketServer } = require("ws");
 const { useServer } = require("graphql-ws/lib/use/ws");
 
 const authAPI = require("../helper/authAPI");
-
+require("dotenv").config();
 const typeDefs = async () => {
 	/* <Declaration of GraphQL Schemas> */
 	const typeDefs = await loadSchema(
@@ -75,10 +75,12 @@ const createApolloServer = async (app) => {
 
 	server.applyMiddleware({ app });
 
-	httpServer.listen({ port: 3001 }, () => {
-		console.log("Apollo Server on http://localhost:3001/graphql");
-		console.log("HTTP Server on http://localhost:3001/");
-		console.log("WebSocket Server on ws://localhost:3001/graphql");
+	httpServer.listen({ port: process.env.PORT }, () => {
+		console.log(
+			`Apollo Server on http://localhost:${process.env.PORT}/graphql`
+		);
+		console.log(`HTTP Server on http://localhost:${process.env.PORT}`);
+		console.log(`WS Server on ws://localhost:${process.env.PORT}/graphql`);
 	});
 };
 /* </ Declaration of ApolloServer> */
