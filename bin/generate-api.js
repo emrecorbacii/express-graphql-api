@@ -20,9 +20,13 @@ try {
 	fs.mkdirSync(projectPath);
 } catch (err) {
 	if (err.code === "EEXIST") {
-		console.log(
-			`The file ${projectName} already exist in the current directory, please give it another name.`
-		);
+		if (projectName === ".") {
+			main();
+		} else {
+			console.log(
+				`The file ${projectName} already exist in the current directory, please give it another name.`
+			);
+		}
 	} else {
 		console.log(error);
 	}
@@ -39,7 +43,11 @@ async function main() {
 		console.log("Installing dependencies...");
 		execSync("npm install");
 
-		console.log("The installation is done, this is ready to use !");
+		console.log("The installation is done !");
+		console.log("To start the server, run :");
+		console.log("    npm start");
+		console.log("for development mode (nodemon) , run :");
+		console.log("    npm run dev");
 	} catch (error) {
 		console.log(error);
 	}
