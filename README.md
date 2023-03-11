@@ -31,8 +31,8 @@ MONGODB_URI="your mongodb URI"
 
 to use Apollo GraphQL : <br>
 
-1. Visit "http://localhost:3001/gql/devPass/$\textcolor{red}{nickname}$".
+1. Visit "http://localhost:3001/gql/devPass/"nickname"".
 2. Copy the token.
 3. Open Apollo Sandbox.
-4. Go to options => headers => set new header named $\textcolor{green}{auth}$.
-5. Past the token to the $\textcolor{green}{auth}$ header's value field directly.
+4. Go to options => headers => set new header named "auth".
+5. Past the token to the "auth" header's value field directly.
