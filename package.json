@@ -1,6 +1,6 @@
 {
 	"name": "express-graphql-api",
-	"version": "1.0.6",
+	"version": "1.1.0",
 	"bin": "./bin/generate-api.js",
 	"description": "Express GraphQL API  with Apollo Server , WebSockets , MongoDB",
 	"main": "app.js",
