@@ -4,6 +4,29 @@
 	"bin": "./bin/generate-api.js",
 	"description": "Express GraphQL API  with Apollo Server , WebSockets , MongoDB",
 	"main": "app.js",
+	"homepage": "https://github.com/emrecorbacii/express-graphql-api",
+	"categories": [
+		"express",
+		"graphql",
+		"apollo",
+		"mongodb",
+		"mongoose",
+		"subscriptions",
+		"websockets"
+	],
+	"keywords": [
+		"express",
+		"graphql",
+		"apollo",
+		"mongodb",
+		"mongoose",
+		"subscriptions",
+		"websockets"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/emrecorbacii/express-graphql-api"
+	},
 	"scripts": {
 		"start": "node app",
 		"dev": "nodemon --ext js,graphql app"
